@@ -1,0 +1,33 @@
+name: Code Complete
+on:
+  workflow_dispatch:
+      inputs:
+        year:
+          description: 'Year'
+          required: true
+          default: '21'
+        release:
+          description: 'Release'
+          required: true
+          default: '0'
+        point:
+          description: 'Point'
+          required: true
+          default: '0'
+jobs:
+  code-complete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: App v${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }} Code Complete (DEV -> INTERNAL)
+          body: |
+            DO NOT SQUASH
+          branch: dev
+          base: internal
+          labels: |
+            needs-review
+            code-completion
+            auto-generated
