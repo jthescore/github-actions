@@ -33,3 +33,4 @@ jobs:
             needs-review,
             code-completion,
             auto-generated
+          github_token: ${{ secrets.GITHUB_TOKEN }}
