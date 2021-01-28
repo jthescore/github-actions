@@ -1,0 +1,39 @@
+name: Version Bump
+on:
+  workflow_dispatch:
+      inputs:
+        year:
+          description: 'Year'
+          required: true
+          default: '21'
+        release:
+          description: 'Release'
+          required: true
+          default: '0'
+        point:
+          description: 'Point'
+          required: true
+          default: '0'
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump Version
+        run: |
+          echo "${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }}" > version.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Bump version to ${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }}
+          title: Bump version to ${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }}
+          body: |
+            Bump version to ${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }}
+          branch: bump-version/${{ github.event.inputs.year }}.${{ github.event.inputs.release }}.${{ github.event.inputs.point }}
+          base: dev
+          labels: |
+            needs-review
+            code-completion
+            auto-generated
+          delete-branch: true
+
