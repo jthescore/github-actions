@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create Pull Request
-        uses: repo-sync/pull-request@v2
+        uses: scorebet/pull-request@v2
         with:
           source_branch: internal
           destination_branch: master
@@ -28,3 +28,7 @@ jobs:
           pr_body: <p align='center'><img src='https://i.imgur.com/FoTJB8S.png'/><br/><b>PLEASE DON'T SQUASH MERGE</b></p>
           pr_label: needs-review,code-completion,auto-generated
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create assignee and reviewer
+        uses: scorebet/actions-assigner@v1
+        with:
+          reviewers: jthescore
