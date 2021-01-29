@@ -31,5 +31,4 @@ jobs:
       - name: Create assignee and reviewer
         uses: scorebet/actions-assigner@v1
         with:
-          token: ${{ secrets.BOT_GITHUB_ACTIONS_TOKEN }}
           reviewers: jthescore
